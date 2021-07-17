@@ -5,5 +5,5 @@ import androidx.databinding.BindingAdapter
 
 @BindingAdapter("setColorWithType")
 fun ConstraintLayout.setBackgroundColor(type: String) {
-    setBackgroundColor(PokemonTypeUtils.getTypeColor(type))
+    setBackgroundColor(PokemonTypeUtils.getTypeColor())
 }

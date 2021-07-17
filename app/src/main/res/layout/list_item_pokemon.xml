@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.pokedex.ui.fragments.pokemonList.PokemonListViewModel" />
-    </data>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pokemonListConstraintLayout"
         android:background="@drawable/rounded_background_card_view"
+        android:backgroundTint="@color/steel"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
-        android:backgroundTint="@color/teal_200"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

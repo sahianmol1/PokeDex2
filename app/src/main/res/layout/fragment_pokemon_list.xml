@@ -3,21 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.pokemonList.PokemonListFragment"
-        android:background="@color/black_floor">
+        android:background="@color/black_floor"
+        app:layoutDescription="@xml/fragment_pokemon_list_xml_constraintlayout3_scene"
+        tools:context=".ui.fragments.pokemonList.PokemonListFragment">
 
         <ImageView
             android:id="@+id/pokemonLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/pokeapi_256"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/pokemon_logo_narration"
-            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/pokeapi_256"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -25,13 +27,13 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            app:spanCount="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pokemonLogo"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:spanCount="2" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>
