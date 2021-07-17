@@ -36,13 +36,18 @@ class PokemonListFragment : Fragment() {
                 it
             } catch (e: IOException) {
                 Log.e(TAG, "IO Exception Occurred")
+                stopShimmer()
                 return@Observer
             } catch (e: HttpException) {
                 Log.e(TAG, "Http Exception Occurred")
+                stopShimmer()
                 return@Observer
             }
             if (response.isSuccessful) {
+                stopShimmer()
                 adapter.submitList(response.body()?.results)
+            } else {
+                stopShimmer()
             }
         })
         return view
@@ -53,6 +58,29 @@ class PokemonListFragment : Fragment() {
         binding.apply {
             pokemonListRecyclerView.adapter = adapter
             pokemonListRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startShimmer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopShimmer()
+    }
+
+    private fun startShimmer() {
+        binding.myShimmerLayout.startShimmer()
+        binding.myShimmerLayout.visibility = View.VISIBLE
+    }
+
+    private fun stopShimmer() {
+        binding.apply {
+            myShimmerLayout.stopShimmer()
+            myShimmerLayout.alpha = 0f
+            myShimmerLayout.visibility = View.GONE
         }
     }
 }
