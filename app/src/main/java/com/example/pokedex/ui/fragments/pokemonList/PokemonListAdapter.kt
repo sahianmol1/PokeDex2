@@ -21,13 +21,12 @@ class PokemonListAdapter: ListAdapter<Result, PokemonListAdapter.PokemonListView
         holder.bind(currentItem)
     }
 
-    inner class PokemonListViewHolder(val binding: ListItemPokemonBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class PokemonListViewHolder(private val binding: ListItemPokemonBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Result) {
             binding.apply {
                 tvPokemonName.text = item.name
                 Glide.with(root)
                     .load(item.getImageUrl())
-                    .centerCrop()
                     .into(imgPokemon)
             }
         }

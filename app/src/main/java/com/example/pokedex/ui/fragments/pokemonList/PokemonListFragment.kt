@@ -45,7 +45,6 @@ class PokemonListFragment : Fragment() {
                 adapter.submitList(response.body()?.results)
             }
         })
-
         return view
     }
 

@@ -7,4 +7,5 @@ class PokemonRepository @Inject constructor(val pokeAPI: PokeAPI) {
 
     suspend fun getPokemonList() = pokeAPI.getPokemonList()
 
+    suspend fun getPokemonInfo(name: String) = pokeAPI.getPokemonInfo(name)
 }
