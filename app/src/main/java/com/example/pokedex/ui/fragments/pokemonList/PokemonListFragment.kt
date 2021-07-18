@@ -86,7 +86,7 @@ class PokemonListFragment : Fragment(), PokemonClickKListener{
         }
     }
 
-    override fun onPokemonCardClick(pokemon: Result) {
-        findNavController().navigate(PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(pokemon.name))
+    override fun onPokemonCardClick(pokemon: Result, image: String) {
+        findNavController().navigate(PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(pokemon.name, image))
     }
 }

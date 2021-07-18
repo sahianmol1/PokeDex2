@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.pokedex.data.Result
 import com.example.pokedex.databinding.ListItemPokemonBinding
 
@@ -27,9 +28,11 @@ class PokemonListAdapter(val pokemonClickKListener: PokemonClickKListener): List
                 tvPokemonName.text = item.name
                 Glide.with(root)
                     .load(item.getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgPokemon)
+
                 root.setOnClickListener {
-                    pokemonClickKListener.onPokemonCardClick(item)
+                    pokemonClickKListener.onPokemonCardClick(item, item.getImageUrl())
                 }
             }
         }

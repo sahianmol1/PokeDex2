@@ -40,8 +40,8 @@
                     android:id="@+id/imgPokemon"
                     android:layout_width="250dp"
                     android:layout_height="250dp"
+                    android:layout_marginTop="40dp"
                     android:contentDescription="@string/narration_pokemon_image"
-                    android:src="@drawable/pokeapi_256"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toolBar" />
@@ -51,7 +51,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Charizard"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="24sp"
@@ -66,12 +65,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/pokemon_type_bg"
-                    android:backgroundTint="@color/water"
                     android:paddingStart="32dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="32dp"
                     android:paddingBottom="8dp"
-                    android:text="Water"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="italic"
@@ -84,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/pokemon_weight_value"
+                    tools:text="@string/pokemon_weight_value"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -97,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/pokemon_height_value"
+                    tools:text="@string/pokemon_height_value"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -143,6 +140,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/pokemonHeight" />
+
+                <ProgressBar
+                    android:id="@+id/loadingIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

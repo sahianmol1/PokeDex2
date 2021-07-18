@@ -22,5 +22,8 @@
         <argument
             android:name="pokemonName"
             app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
     </fragment>
 </navigation>
