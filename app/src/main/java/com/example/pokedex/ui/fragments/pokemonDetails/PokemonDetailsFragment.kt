@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,7 +37,12 @@ class PokemonDetailsFragment : Fragment() {
         Glide.with(binding.root)
             .load(args.image)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .centerInside()
             .into(binding.imgPokemon)
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.title = ""
 
         viewModel.getPokemonInfo(args.pokemonName)
         viewModel.pokemonDetailLiveData.observe(viewLifecycleOwner, Observer {
@@ -64,14 +70,14 @@ class PokemonDetailsFragment : Fragment() {
                     )
 
                     val tint = ContextCompat.getColor(requireContext(), PokemonTypeUtils.getTypeColor(response.body()?.types?.get(0)?.type?.name!!))
-                    customView.background.setTint(tint)
                     pokemonType.background.setTint(tint)
+                    toolbar.setBackgroundColor(tint)
+                    collapsingToolbar.setBackgroundColor(tint)
+                    fatherConstraintLayout.setBackgroundColor(tint)
                 }
             }
 
         })
-
-
         return binding.root
     }
 }
