@@ -80,4 +80,6 @@ class PokemonDetailsFragment : Fragment() {
         })
         return binding.root
     }
+
+
 }
