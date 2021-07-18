@@ -8,14 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.pokedex.data.Result
 import com.example.pokedex.databinding.FragmentPokemonListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.HttpException
 import java.io.IOException
 
 @AndroidEntryPoint
-class PokemonListFragment : Fragment() {
+class PokemonListFragment : Fragment(), PokemonClickKListener{
     private lateinit var binding: FragmentPokemonListBinding
     private lateinit var adapter: PokemonListAdapter
     val TAG = "PokemonList Fragment"
@@ -54,7 +56,7 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun setUPRecyclerView() {
-        adapter = PokemonListAdapter()
+        adapter = PokemonListAdapter(this)
         binding.apply {
             pokemonListRecyclerView.adapter = adapter
             pokemonListRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -82,5 +84,9 @@ class PokemonListFragment : Fragment() {
             myShimmerLayout.alpha = 0f
             myShimmerLayout.visibility = View.GONE
         }
+    }
+
+    override fun onPokemonCardClick(pokemon: Result) {
+        findNavController().navigate(PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(pokemon.name))
     }
 }

@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.pokedex.data.Result
 import com.example.pokedex.databinding.ListItemPokemonBinding
 
-class PokemonListAdapter: ListAdapter<Result, PokemonListAdapter.PokemonListViewHolder>(DiffCallBAck()) {
+class PokemonListAdapter(val pokemonClickKListener: PokemonClickKListener): ListAdapter<Result, PokemonListAdapter.PokemonListViewHolder>(DiffCallBAck()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonListViewHolder {
         val binding = ListItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +28,9 @@ class PokemonListAdapter: ListAdapter<Result, PokemonListAdapter.PokemonListView
                 Glide.with(root)
                     .load(item.getImageUrl())
                     .into(imgPokemon)
+                root.setOnClickListener {
+                    pokemonClickKListener.onPokemonCardClick(item)
+                }
             }
         }
     }
