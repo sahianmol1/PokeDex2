@@ -79,4 +79,8 @@ dependencies {
 
     // Shimmer effect
     implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
+
+    // Animated Progress bar
+    implementation "com.github.skydoves:progressview:1.1.1"
+
 }

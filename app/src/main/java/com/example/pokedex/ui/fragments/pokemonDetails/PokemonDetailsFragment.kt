@@ -39,6 +39,7 @@ class PokemonDetailsFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerInside()
             .into(binding.imgPokemon)
+        binding.tvPokemonName.text = args.pokemonName
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -60,8 +61,7 @@ class PokemonDetailsFragment : Fragment() {
             if (response.isSuccessful) {
                 binding.loadingIndicator.visibility = View.GONE
                 binding.apply {
-                    tvPokemonName.text = response.body()?.name
-                    pokemonType.text = response.body()?.types?.get(0)?.type?.name ?: "Water"
+                    pokemonType.text = response.body()?.types?.get(0)?.type?.name ?: "Normal"
                     pokemonHeightValue.text = getString(R.string.pokemon_height_value,
                         (response.body()?.height)?.div(10f).toString().trim()
                     )
@@ -73,6 +73,14 @@ class PokemonDetailsFragment : Fragment() {
                     pokemonType.background.setTint(tint)
                     collapsingToolbar.background.setTint(tint)
                     toolbar.setBackgroundColor(tint)
+
+                    pvAtk.progressAnimate()
+                    pvDef.progressAnimate()
+                    pvExp.progressAnimate()
+                    pvHp.progressAnimate()
+                    pvSpd.progressAnimate()
+
+                    pvAtk.setOnProgressChangeListener { pvAtk.labelText = "${it.toInt()}/100" }
                 }
             }
 
