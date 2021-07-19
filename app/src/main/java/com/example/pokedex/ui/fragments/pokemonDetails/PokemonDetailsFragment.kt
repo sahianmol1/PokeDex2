@@ -71,9 +71,8 @@ class PokemonDetailsFragment : Fragment() {
 
                     val tint = ContextCompat.getColor(requireContext(), PokemonTypeUtils.getTypeColor(response.body()?.types?.get(0)?.type?.name!!))
                     pokemonType.background.setTint(tint)
+                    collapsingToolbar.background.setTint(tint)
                     toolbar.setBackgroundColor(tint)
-                    collapsingToolbar.setBackgroundColor(tint)
-                    fatherConstraintLayout.setBackgroundColor(tint)
                 }
             }
 
