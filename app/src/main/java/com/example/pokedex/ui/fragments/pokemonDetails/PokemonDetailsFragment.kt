@@ -1,5 +1,6 @@
 package com.example.pokedex.ui.fragments.pokemonDetails
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.pokedex.R
 import com.example.pokedex.databinding.FragmentPokemonDetailsBinding
 import com.example.pokedex.util.PokemonTypeUtils
+import com.skydoves.progressview.textForm
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.HttpException
 import java.io.IOException
@@ -74,13 +76,62 @@ class PokemonDetailsFragment : Fragment() {
                     collapsingToolbar.background.setTint(tint)
                     toolbar.setBackgroundColor(tint)
 
+                    val form = textForm(requireContext()) {
+                        text = "This is a TextForm"
+                        textColor = ContextCompat.getColor(requireContext(), R.color.white_87)
+                        textSize = 14f
+                        textTypeface = Typeface.BOLD
+                    }
+                    val randomSpeed = (Math.random() * 300).toFloat()
+                    if (((randomSpeed / 300) * 100) > 50) {
+                        pvSpd.progress = (randomSpeed / 300) * 100
+                    } else {
+                        pvSpd.progress = 50F
+                    }
+                    pvSpd.applyTextForm(form)
+                    pvSpd.labelText = "${randomSpeed.toInt()} / 300"
+
+                    val randomAttack = (Math.random() * 1000).toFloat()
+                    if (((randomAttack / 1000) * 100) > 50) {
+                        pvAtk.progress = (randomAttack / 1000) * 100
+                    } else {
+                        pvAtk.progress = 50F
+                    }
+                    pvAtk.applyTextForm(form)
+                    pvAtk.labelText = "${randomAttack.toInt()} / 1000"
+
+                    val randomDefence = (Math.random() * 1000).toFloat()
+                    if (((randomDefence / 1000) * 100) > 50) {
+                        pvDef.progress = (randomDefence / 1000) * 100
+                    } else {
+                        pvDef.progress = 50F
+                    }
+                    pvDef.applyTextForm(form)
+                    pvDef.labelText = "${randomDefence.toInt()} / 1000"
+
+                    val randomExperience = (Math.random() * 1000).toFloat()
+                    if (((randomExperience / 1000) * 100) > 50) {
+                        pvExp.progress = (randomExperience / 1000) * 100
+                    } else {
+                        pvExp.progress = 50F
+                    }
+                    pvExp.applyTextForm(form)
+                    pvExp.labelText = "${randomExperience.toInt()} / 1000"
+
+                    val randomHp = (Math.random() * 1000).toFloat()
+                    if (((randomHp / 1000) * 100) > 50) {
+                        pvHp.progress = (randomHp / 1000) * 100
+                    } else {
+                        pvHp.progress = 50F
+                    }
+                    pvHp.applyTextForm(form)
+                    pvHp.labelText = "${randomHp.toInt()} / 1000"
+
                     pvAtk.progressAnimate()
                     pvDef.progressAnimate()
                     pvExp.progressAnimate()
                     pvHp.progressAnimate()
                     pvSpd.progressAnimate()
-
-                    pvAtk.setOnProgressChangeListener { pvAtk.labelText = "${it.toInt()}/100" }
                 }
             }
 
