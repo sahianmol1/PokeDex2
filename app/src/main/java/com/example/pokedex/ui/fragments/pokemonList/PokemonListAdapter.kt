@@ -2,6 +2,7 @@ package com.example.pokedex.ui.fragments.pokemonList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,11 +35,11 @@ class PokemonListAdapter(val pokemonClickKListener: PokemonClickKListener) :
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgPokemon)
 
+                ViewCompat.setTransitionName(imgPokemon, item.name)
+
                 root.setOnClickListener {
-                    pokemonClickKListener.onPokemonCardClick(item, item.getImageUrl())
+                    pokemonClickKListener.onPokemonCardClick(item, item.getImageUrl(), imgPokemon)
                 }
-
-
             }
         }
     }

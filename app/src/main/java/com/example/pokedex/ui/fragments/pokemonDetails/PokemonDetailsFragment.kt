@@ -1,7 +1,9 @@
 package com.example.pokedex.ui.fragments.pokemonDetails
 
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.pokedex.R
 import com.example.pokedex.databinding.FragmentPokemonDetailsBinding
 import com.example.pokedex.util.PokemonTypeUtils
@@ -36,11 +42,45 @@ class PokemonDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentPokemonDetailsBinding.inflate(inflater, container, false)
 
+        val sharedElementTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(
+                android.R.transition.move
+            )
+
+        sharedElementEnterTransition = sharedElementTransition
+        sharedElementReturnTransition = sharedElementTransition
+
+        postponeEnterTransition()
+
         Glide.with(binding.root)
             .load(args.image)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerInside()
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    startPostponedEnterTransition()
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    startPostponedEnterTransition()
+                    return false
+                }
+
+            })
             .into(binding.imgPokemon)
+
         binding.tvPokemonName.text = args.pokemonName
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)

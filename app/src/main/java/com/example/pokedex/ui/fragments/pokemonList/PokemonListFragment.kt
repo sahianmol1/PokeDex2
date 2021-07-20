@@ -5,9 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokedex.data.Result
@@ -17,7 +20,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 @AndroidEntryPoint
-class PokemonListFragment : Fragment(), PokemonClickKListener{
+class PokemonListFragment : Fragment(), PokemonClickKListener {
     private lateinit var binding: FragmentPokemonListBinding
     private lateinit var adapter: PokemonListAdapter
     val TAG = "PokemonList Fragment"
@@ -48,6 +51,11 @@ class PokemonListFragment : Fragment(), PokemonClickKListener{
             if (response.isSuccessful) {
                 stopShimmer()
                 adapter.submitList(response.body()?.results)
+                // Start the transition once all views have been
+                // measured and laid out
+                (view.parent as? ViewGroup)?.doOnPreDraw {
+                    startPostponedEnterTransition()
+                }
             } else {
                 stopShimmer()
             }
@@ -86,7 +94,14 @@ class PokemonListFragment : Fragment(), PokemonClickKListener{
         }
     }
 
-    override fun onPokemonCardClick(pokemon: Result, image: String) {
-        findNavController().navigate(PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(pokemon.name, image))
+    override fun onPokemonCardClick(pokemon: Result, image: String, imageView: ImageView) {
+        val extras = FragmentNavigatorExtras(imageView to "pokemonImageTransition")
+        findNavController().navigate(
+            PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(
+                pokemon.name,
+                image
+            ),
+            extras
+        )
     }
 }

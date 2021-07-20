@@ -33,6 +33,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="15dp"
                     android:contentDescription="@string/narration_pokemon_image"
+                    android:transitionName="pokemonImageTransition"
                     android:layout_marginTop="15dp"
                     android:scaleType="fitCenter"
                     app:layout_collapseMode="parallax" />
