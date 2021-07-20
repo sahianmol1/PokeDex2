@@ -11,8 +11,8 @@ interface PokeAPI {
 
     @GET("pokemon")
     suspend fun getPokemonList(
-        @Query("limit") size: Int = 200,
-        @Query("offset") offSet: Int = 200
+        @Query("limit") size: Int = 100,
+        @Query("offset") offSet: Int = 100
     ): Response<PokemonResponse>
 
     @GET("pokemon/{name}")

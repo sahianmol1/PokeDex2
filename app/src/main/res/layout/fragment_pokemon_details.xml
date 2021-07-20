@@ -3,48 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/fatherConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_floor"
-        tools:context=".ui.fragments.pokemonDetails.PokemonDetailsFragment">
+        android:background="@color/background800"
+        tools:context=".MainActivity">
 
-        <ScrollView
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="320dp"
+            android:fitsSystemWindows="true"
+            android:background="@drawable/custom_ctr_bg"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Toolbar
-                    android:id="@+id/toolBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:popupTheme="@style/ThemeOverlay.AppCompat"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/customView"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:background="@drawable/custom_ctr_bg"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:background="@drawable/custom_ctr_bg"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" >
 
                 <ImageView
                     android:id="@+id/imgPokemon"
                     android:layout_width="250dp"
                     android:layout_height="250dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
                     android:contentDescription="@string/narration_pokemon_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+                    android:transitionName="pokemonImageTransition"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="fitCenter"
+                    app:layout_collapseMode="parallax" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat"
+                    android:translationZ="-200dp"
+                    app:layout_collapseMode="pin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/layout_bg"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/tvPokemonName"
@@ -57,7 +71,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/customView" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/pokemonType"
@@ -81,26 +95,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    tools:text="@string/pokemon_weight_value"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/pokemonHeightValue"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pokemonType" />
+                    app:layout_constraintTop_toBottomOf="@id/pokemonType"
+                    tools:text="@string/pokemon_weight_value" />
 
                 <TextView
                     android:id="@+id/pokemonHeightValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    tools:text="@string/pokemon_height_value"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/pokemonWeightValue"
-                    app:layout_constraintTop_toBottomOf="@id/pokemonType" />
+                    app:layout_constraintTop_toBottomOf="@id/pokemonType"
+                    tools:text="@string/pokemon_height_value" />
 
                 <TextView
                     android:id="@+id/pokemonWeight"
@@ -132,7 +146,7 @@
                     android:id="@+id/tvBaseStats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:text="@string/base_stats"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -141,19 +155,177 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/pokemonHeight" />
 
+                <TextView
+                    android:id="@+id/tvHp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hp"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/pvHp"
+                    app:layout_constraintBottom_toBottomOf="@+id/pvHp"
+                    app:layout_constraintEnd_toStartOf="@+id/pvHp" />
+
+                <com.skydoves.progressview.ProgressView
+                    android:id="@+id/pvHp"
+                    android:layout_width="0dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginEnd="16dp"
+                    app:progressView_radius="12dp"
+                    app:progressView_labelColorInner="@color/white"
+                    app:progressView_labelSize="13sp"
+                    app:progressView_colorBackground="@color/white"
+                    app:progressView_colorProgress="@color/md_orange_200"
+                    app:progressView_autoAnimate="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBaseStats" />
+
+                <TextView
+                    android:id="@+id/tvAtk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/atk"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pvAtk"
+                    app:layout_constraintTop_toTopOf="@+id/pvAtk"
+                    app:layout_constraintBottom_toBottomOf="@+id/pvAtk" />
+
+                <com.skydoves.progressview.ProgressView
+                    android:id="@+id/pvAtk"
+                    android:layout_width="0dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginEnd="16dp"
+                    app:progressView_radius="12dp"
+                    app:progressView_labelColorInner="@color/black"
+                    app:progressView_labelSize="13sp"
+                    app:progressView_colorBackground="@color/white"
+                    app:progressView_colorProgress="@color/yellow"
+                    app:progressView_autoAnimate="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pvHp" />
+
+                <TextView
+                    android:id="@+id/tvDef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/def"
+                    android:textColor="@color/white"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pvDef"
+                    app:layout_constraintTop_toTopOf="@+id/pvDef"
+                    app:layout_constraintBottom_toBottomOf="@+id/pvDef" />
+
+                <com.skydoves.progressview.ProgressView
+                    android:id="@+id/pvDef"
+                    android:layout_width="0dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginEnd="16dp"
+                    app:progressView_radius="12dp"
+                    app:progressView_labelColorInner="@color/white"
+                    app:progressView_labelSize="13sp"
+                    app:progressView_colorBackground="@color/white"
+                    app:progressView_colorProgress="@color/skyBlue"
+                    app:progressView_autoAnimate="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pvAtk" />
+
+                <TextView
+                    android:id="@+id/tvSpd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/spd"
+                    android:textColor="@color/white"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pvSpd"
+                    app:layout_constraintTop_toTopOf="@+id/pvSpd"
+                    app:layout_constraintBottom_toBottomOf="@+id/pvSpd" />
+
+                <com.skydoves.progressview.ProgressView
+                    android:id="@+id/pvSpd"
+                    android:layout_width="0dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginEnd="16dp"
+                    app:progressView_radius="12dp"
+                    app:progressView_labelColorInner="@color/white"
+                    app:progressView_labelSize="13sp"
+                    app:progressView_colorBackground="@color/white"
+                    app:progressView_colorProgress="@color/steel"
+                    app:progressView_autoAnimate="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pvDef" />
+
+                <TextView
+                    android:id="@+id/tvExp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exp"
+                    android:textColor="@color/white"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pvExp"
+                    app:layout_constraintTop_toTopOf="@+id/pvExp"
+                    app:layout_constraintBottom_toBottomOf="@+id/pvExp" />
+
+                <com.skydoves.progressview.ProgressView
+                    android:id="@+id/pvExp"
+                    android:layout_width="0dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginEnd="16dp"
+                    app:progressView_radius="12dp"
+                    app:progressView_labelColorInner="@color/white"
+                    app:progressView_labelSize="13sp"
+                    app:progressView_colorBackground="@color/white"
+                    app:progressView_colorProgress="@color/md_green_100"
+                    app:progressView_autoAnimate="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pvSpd"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="55dp"/>
+
                 <ProgressBar
                     android:id="@+id/loadingIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
