@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -42,13 +43,15 @@ class PokemonDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentPokemonDetailsBinding.inflate(inflater, container, false)
 
+        ViewCompat.setTransitionName(binding.imgPokemon, "pokemonImageTransition")
+        ViewCompat.setTransitionName(binding.tvPokemonName, "pokemonNameTransition")
+
         val sharedElementTransition = TransitionInflater.from(requireContext())
             .inflateTransition(
                 android.R.transition.move
             )
 
         sharedElementEnterTransition = sharedElementTransition
-        sharedElementReturnTransition = sharedElementTransition
 
         postponeEnterTransition()
 
@@ -176,6 +179,9 @@ class PokemonDetailsFragment : Fragment() {
             }
 
         })
+
+        sharedElementReturnTransition = sharedElementTransition
+
         return binding.root
     }
 

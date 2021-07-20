@@ -36,9 +36,10 @@ class PokemonListAdapter(val pokemonClickKListener: PokemonClickKListener) :
                     .into(imgPokemon)
 
                 ViewCompat.setTransitionName(imgPokemon, item.name)
+                ViewCompat.setTransitionName(tvPokemonName, item.url)
 
                 root.setOnClickListener {
-                    pokemonClickKListener.onPokemonCardClick(item, item.getImageUrl(), imgPokemon)
+                    pokemonClickKListener.onPokemonCardClick(item, item.getImageUrl(), imgPokemon, tvPokemonName)
                 }
             }
         }

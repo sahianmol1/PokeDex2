@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,6 +34,8 @@ class PokemonListFragment : Fragment(), PokemonClickKListener {
         binding = FragmentPokemonListBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        postponeEnterTransition()
+
         setUPRecyclerView()
         viewModel.getPokemonList()
 
@@ -51,6 +54,7 @@ class PokemonListFragment : Fragment(), PokemonClickKListener {
             if (response.isSuccessful) {
                 stopShimmer()
                 adapter.submitList(response.body()?.results)
+
                 // Start the transition once all views have been
                 // measured and laid out
                 (view.parent as? ViewGroup)?.doOnPreDraw {
@@ -94,8 +98,10 @@ class PokemonListFragment : Fragment(), PokemonClickKListener {
         }
     }
 
-    override fun onPokemonCardClick(pokemon: Result, image: String, imageView: ImageView) {
-        val extras = FragmentNavigatorExtras(imageView to "pokemonImageTransition")
+    override fun onPokemonCardClick(pokemon: Result, image: String, imageView: ImageView, textView: TextView) {
+        val extras = FragmentNavigatorExtras(imageView to "pokemonImageTransition",
+        textView to "pokemonNameTransition")
+
         findNavController().navigate(
             PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(
                 pokemon.name,
